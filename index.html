@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rest In Peace ScamWize</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- RIP ICON -->
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2844/2844377.png">
+
+<style>
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at top, #7a2cff, #120018);
+  color: #eadcff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* CLICK TO ENTER */
+.enter {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #4a1872, #09000d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: opacity 1.5s ease;
+}
+
+.enter.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.enter span {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  animation: pulse 2s infinite;
+  text-shadow: 0 0 20px #b977ff;
+}
+
+@keyframes pulse {
+  0% { opacity: .4; }
+  50% { opacity: 1; }
+  100% { opacity: .4; }
+}
+
+/* MAIN CONTENT */
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  letter-spacing: 3px;
+  position: relative;
+  animation: glitch 3s infinite;
+  text-shadow:
+    0 0 12px rgba(200,120,255,0.9),
+    0 0 35px rgba(130,60,255,0.8);
+}
+
+.subtitle {
+  margin-top: 16px;
+  opacity: .7;
+  letter-spacing: 1px;
+}
+
+/* DATES */
+.dates {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  text-shadow: 0 0 10px rgba(180,120,255,0.6);
+}
+
+/* GLITCH EFFECT */
+@keyframes glitch {
+  0% { transform: none; }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: none; }
+}
+
+/* FOG */
+.fog {
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(circle, rgba(160,90,255,0.08), transparent 60%);
+  animation: drift 60s linear infinite;
+}
+
+@keyframes drift {
+  from { transform: translateX(-10%); }
+  to { transform: translateX(10%); }
+}
+
+/* ASH PARTICLES */
+.ash {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(230,210,255,0.6);
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { transform: translateY(-10vh); opacity: 0; }
+  to { transform: translateY(110vh); opacity: 1; }
+}
+
+/* FADE TO BLACK */
+.fadeout {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  animation: darkness 180s linear forwards;
+}
+
+@keyframes darkness {
+  to { opacity: 0.85; }
+}
+
+audio { display: none; }
+</style>
+</head>
+<body>
+
+<div class="enter" id="enter"><span>CLICK TO ENTER</span></div>
+
+<div class="fog"></div>
+
+<div class="center">
+  <div>
+    <h1>Rest In Peace ScamWize</h1>
+    <div class="subtitle">Gone, but never erased</div>
+    <div class="dates">1994 – 2026</div>
+  </div>
+</div>
+
+<div class="fadeout"></div>
+
+<audio id="audio" loop>
+  <source src="RubixRIP.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ASH SPAWNER */
+for (let i = 0; i < 80; i++) {
+  const a = document.createElement("div");
+  a.className = "ash";
+  a.style.left = Math.random() * 100 + "vw";
+  a.style.animationDuration = (10 + Math.random() * 20) + "s";
+  a.style.opacity = Math.random();
+  document.body.appendChild(a);
+}
+
+/* AUDIO START */
+const enter = document.getElementById("enter");
+const audio = document.getElementById("audio");
+
+enter.onclick = async () => {
+  enter.classList.add("hidden");
+  audio.volume = 0;
+  await audio.play();
+
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.015;
+    audio.volume = Math.min(v, 1);
+    if (v >= 1) clearInterval(fade);
+  }, 100);
+};
+</script>
+
+</body>
+</html>
